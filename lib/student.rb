@@ -63,10 +63,14 @@ class Student
     self.new_from_db(row)
   end.first
 
-  def updates
+  def update
+    sql = <<-SQL
+      UPDATE students
+      SET name = ?, grade = ?
+      WHERE id = ?
+      SQL
+
+    DB[:conn].execute(sql, self.name, self.grade, self.id)
   end
-
-end
-
 
 end
